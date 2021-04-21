@@ -46,11 +46,11 @@ public class Research {
 	
 	 preparedStmt.execute();
 	 con.close();
-	 output = "Inserted successfully";
+	 output = "Inserted  Research paper Details successfully";
 	 }
 	 catch (Exception e)
 	 {
-	 output = "Error while inserting the item.";
+	 output = "Error while inserting Research paper Details";
 	 System.err.println(e.getMessage());
 	 e.printStackTrace();
 	 }
@@ -67,7 +67,7 @@ public class Research {
 	 if (con == null)
 	 {return "Error while connecting to the database for reading."; }
 	 // Prepare the html table to be displayed
-	 output = "<table border='1'><tr><th>Item Code</th><th>Research Title</th>" +
+	 output = "<table border='1'><tr><th>Research ID</th><th>Research paper Title</th>" +
 	 "<th>Research Description</th>" +
 	 "<th>Member Name</th>" +
 	 "<th>Published Date</th>" +
@@ -139,11 +139,11 @@ public class Research {
 	 preparedStmt.execute();
 	 con.close();
 	
-	 output = "Updated successfully";
+	 output = "Updated Research paper Details successfully";
 	 }
 	 catch (Exception e)
 	 {
-	 output = "Error while updating the item.";
+	 output = "Error while Updating Research paper Details.";
 	 System.err.println(e.getMessage());
 	 e.printStackTrace();
 	 }
@@ -167,11 +167,11 @@ public class Research {
 	 // execute the statement
 	 preparedStmt.execute();
 	 con.close();
-	 output = "Deleted successfully";
+	 output = "Deleted Research paper Details successfully";
 	 }
 	 catch (Exception e)
 	 {
-	 output = "Error while deleting the item.";
+	 output = "Error while Deleting Research paper Details.";
 	 System.err.println(e.getMessage());
 	 e.printStackTrace();
 	 }
