@@ -24,7 +24,7 @@ public class Research {
 	 }
 	
 	
-	public String insertItem(String code, String name, String desc,String leader,String date,String campus)
+	public String insertItem(String code, String name, String description,String leader,String date,String campus,String product_id)
 	 {
 	 String output = "";
 	 try
@@ -33,15 +33,17 @@ public class Research {
 	 if (con == null)
 	 {return "Error while connecting to the database for inserting."; }
 	 // create a prepared statement
-	 String query = " INSERT INTO paper (`id`, `name`, `description`, `leader`, `date`, `campus`) VALUES (?, ?, ?, ?, ?, ?);";
+	 String query = " INSERT INTO paper (`id`, `name`, `description`, `member`, `date`, `campus`,`product_id`) VALUES (?, ?, ?, ?, ?, ?, ?);";
 	 PreparedStatement preparedStmt = con.prepareStatement(query);
 	 // binding values
 	 preparedStmt.setString(1, code);
 	 preparedStmt.setString(2, name);
-	 preparedStmt.setString(3, desc);
+	 preparedStmt.setString(3, description);
 	 preparedStmt.setString(4, leader);
 	 preparedStmt.setString(5, date);
 	 preparedStmt.setString(6, campus);
+	 preparedStmt.setString(7, product_id);
+	 
 	// execute the statement
 	
 	 preparedStmt.execute();
@@ -72,6 +74,7 @@ public class Research {
 	 "<th>Member Name</th>" +
 	 "<th>Published Date</th>" +
 	 "<th>University</th>" +
+	 "<th>Product_id</th>" +
 	 "<th>Update</th><th>Remove</th></tr>";
 
 	 String query = "select * from paper";
@@ -82,17 +85,20 @@ public class Research {
 	 {
 	 String id = Integer.toString(rs.getInt("id"));
 	 String name= rs.getString("name");
-	 String des = rs.getString("description");
-	 String leader = rs.getString("leader");
-	 String date = rs.getString("date");
+	 String description = rs.getString("description");
+	 String member = rs.getString("member"
+	 		+ "");
+	 String pdate = rs.getString("date");
 	 String campus = rs.getString("campus");
+	 String product = rs.getString("product_id");
 	 // Add into the html table
 	 output += "<tr><td>" + id+ "</td>";
 	 output += "<td>" + name + "</td>";
-	 output += "<td>" + des + "</td>";
-	 output += "<td>" + leader + "</td>";
-	 output += "<td>" + date + "</td>";
+	 output += "<td>" + description + "</td>";
+	 output += "<td>" + member + "</td>";
+	 output += "<td>" + pdate + "</td>";
 	 output += "<td>" + campus + "</td>";
+	 output += "<td>" + product  + "</td>";
 	 // buttons
 	 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
 	 + "<td><form method='post' action='items.jsp'>"
@@ -113,7 +119,7 @@ public class Research {
 	 }
 	
 	
-	public String updateItem(String ID, String name, String des, String leader, String date, String campus)
+	public String updateItem(String ID, String name, String des, String leader, String date, String campus ,String product_id)
 	
 	 {
 	 String output = "";
@@ -123,7 +129,7 @@ public class Research {
 	 if (con == null)
 	 {return "Error while connecting to the database for updating."; }
 	 // create a prepared statement
-	 String query = "UPDATE paper SET name=?,description=?,leader=?,date=?,campus=? WHERE id=?";
+	 String query = "UPDATE paper SET name=?,description=?,member=?,date=?,campus=?,product_id =? WHERE id=?";
 	 PreparedStatement preparedStmt = con.prepareStatement(query);
 	 // binding values
 	
@@ -133,7 +139,8 @@ public class Research {
 	 preparedStmt.setString(3, leader);
 	 preparedStmt.setString(4, date);
 	 preparedStmt.setString(5, campus);
-	 preparedStmt.setInt(6,Integer.parseInt(ID));
+	 preparedStmt.setString(6, product_id);
+	 preparedStmt.setInt(7,Integer.parseInt(ID));
 	 System.out.println("no error1");
 	 // execute the statement
 	 preparedStmt.execute();

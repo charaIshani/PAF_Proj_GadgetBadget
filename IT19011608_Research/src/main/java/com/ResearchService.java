@@ -28,14 +28,7 @@ import model.Research;
 public class ResearchService {
 
 	Research itemObj = new Research();
-//	@GET
-//	@Path("/")
-//	@Produces(MediaType.TEXT_HTML)
-//	public String readItems()
-//	 {
-//	 return "Hello";
-//	 } 
-//	
+
 	
 	@GET
 	@Path("/")
@@ -52,28 +45,16 @@ public class ResearchService {
 	public String insertItem(@FormParam("id") String id,
 	 @FormParam("name") String name,
 	 @FormParam("description") String description,
-	 @FormParam("leader") String leader, 
+	 @FormParam("member") String leader, 
 	 @FormParam("date") String date,
-	 @FormParam("campus") String campus)
+	 @FormParam("campus") String campus,
+	 @FormParam("product_id") String product_id)
 	{
-	 String output = itemObj.insertItem(id, name, description, leader,date,campus);
+	 String output = itemObj.insertItem(id, name, description, leader,date,campus,product_id);
 	return output;
 	}
 	
-	@DELETE
-	@Path("/")
-	@Consumes(MediaType.APPLICATION_XML)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteItem(String itemData)
-	{
-	//Convert the input string to an XML document
-	 Document doc = Jsoup.parse(itemData, "", Parser.xmlParser());
-
-	//Read the value from the element <itemID>
-	 String itemID = doc.select("itemID").text();
-	 String output = itemObj.deleteItem(itemID);
-	return output;
-	}
+	
 	
 	@PUT
 	@Path("/")
@@ -87,14 +68,28 @@ public class ResearchService {
 	 String id = itemObject.get("id").getAsString();
 	 String name = itemObject.get("name").getAsString();
 	 String description = itemObject.get("description").getAsString();
-	 String leader = itemObject.get("leader").getAsString();
+	 String leader = itemObject.get("member").getAsString();
 	 String date = itemObject.get("date").getAsString();
 	 String campus = itemObject.get("campus").getAsString();
-	 String output = itemObj.updateItem(id, name, description, leader, date,campus);
+	 String product_id = itemObject.get("product_id").getAsString();
+	 String output = itemObj.updateItem(id, name, description, leader, date,campus,product_id);
 	return output;
 	}
 	
-	
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteItem(String itemData)
+	{
+	//Convert the input string to an XML document
+	 Document doc = Jsoup.parse(itemData, "", Parser.xmlParser());
+
+	//Read the value from the element <itemID>
+	 String itemID = doc.select("id").text();
+	 String output = itemObj.deleteItem(itemID);
+	return output;
+	}
 	
 	}
 	
